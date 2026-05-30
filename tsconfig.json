@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2020",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -32,20 +36,53 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@/app/*": ["./src/app/*"],
-      "@/features/*": ["./src/features/*"],
-      "@/shared/*": ["./src/shared/*"],
-      "@/types/*": ["./src/shared/types/*"],
-      "@/utils/*": ["./src/shared/utils/*"],
-      "@/hooks/*": ["./src/shared/hooks/*"],
-      "@/stores/*": ["./src/shared/stores/*"],
-      "@/services/*": ["./src/shared/services/*"],
-      "@/components/*": ["./src/shared/components/*"],
-      "@/lib/*": ["./src/shared/lib/*"],
-      "@/constants/*": ["./src/shared/constants/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ],
+      "@/app/*": [
+        "./src/app/*"
+      ],
+      "@/features/*": [
+        "./src/features/*"
+      ],
+      "@/shared/*": [
+        "./src/shared/*"
+      ],
+      "@/types/*": [
+        "./src/shared/types/*"
+      ],
+      "@/utils/*": [
+        "./src/shared/utils/*"
+      ],
+      "@/hooks/*": [
+        "./src/shared/hooks/*"
+      ],
+      "@/stores/*": [
+        "./src/shared/stores/*"
+      ],
+      "@/services/*": [
+        "./src/shared/services/*"
+      ],
+      "@/components/*": [
+        "./src/shared/components/*"
+      ],
+      "@/lib/*": [
+        "./src/shared/lib/*"
+      ],
+      "@/constants/*": [
+        "./src/shared/constants/*"
+      ]
+    },
+    "allowJs": true,
+    "noEmit": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
