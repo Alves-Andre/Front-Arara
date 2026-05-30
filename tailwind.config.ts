@@ -11,6 +11,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        arara: {
+          primary: '#0066CC',
+          secondary: '#FFD23F',
+          tertiary: '#00AEEF',
+          neutral: '#74777F',
+          surface: '#E9EAF2',
+          ink: '#1B1D24',
+        },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

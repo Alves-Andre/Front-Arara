@@ -3,16 +3,21 @@
 'use client'
 
 import Link from 'next/link'
+import { AppLogo } from '@/shared/components'
 import { Button } from '@/shared/components/Button'
 
 export default function Home() {
   return (
     <main className="flex flex-col items-center justify-center min-h-screen px-4">
       <div className="max-w-4xl w-full space-y-8">
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold">SEMARH</h1>
+        <div className="flex flex-col items-center space-y-4 text-center">
+          <AppLogo
+            className="justify-center"
+            markClassName="size-24 sm:size-28"
+            wordmarkClassName="h-16 sm:h-20"
+          />
           <p className="text-xl text-muted-foreground">
-            Sistema de Monitoramento de Recuperação Ambiental
+            Acompanhamento Remoto de Areas em Recuperacao Ambiental
           </p>
         </div>
 

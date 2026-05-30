@@ -1,40 +1,43 @@
-// src/app/globals.css
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.6%;
+    --arara-primary: 210 100% 40%;
+    --arara-secondary: 47 100% 62%;
+    --arara-tertiary: 196 100% 47%;
+    --arara-neutral: 225 5% 48%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.6%;
+    --background: 225 20% 96%;
+    --foreground: 225 11% 12%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.6%;
+    --card: 225 26% 93%;
+    --card-foreground: 225 11% 12%;
 
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
+    --popover: 225 26% 93%;
+    --popover-foreground: 225 11% 12%;
 
-    --accent: 0 0% 9.0%;
+    --muted: 225 20% 90%;
+    --muted-foreground: var(--arara-neutral);
+
+    --accent: var(--arara-tertiary);
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.6%;
+    --border: 225 20% 84%;
+    --input: 225 20% 84%;
+    --ring: var(--arara-primary);
 
     --radius: 0.5rem;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 40% 98%;
+    --primary: var(--arara-primary);
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: var(--arara-secondary);
+    --secondary-foreground: 225 11% 12%;
   }
 
   .dark {
@@ -84,13 +87,33 @@
 
 /* Leaflet overrides */
 .leaflet-container {
-  @apply rounded-lg overflow-hidden;
+  @apply overflow-hidden;
 }
 
 .leaflet-control {
-  @apply shadow-md;
+  @apply overflow-hidden rounded-md border border-white/70 shadow-lg backdrop-blur;
+}
+
+.leaflet-bar a {
+  @apply border-slate-200 bg-white/95 text-slate-700;
+}
+
+.leaflet-bar a:hover {
+  @apply bg-slate-100 text-slate-950;
+}
+
+.leaflet-control-layers {
+  @apply bg-white/95 text-sm text-slate-700;
+}
+
+.leaflet-control-scale-line {
+  @apply border-slate-700 bg-white/80 text-slate-700;
 }
 
 .leaflet-popup-content {
-  @apply rounded-lg;
+  @apply text-sm text-slate-700;
+}
+
+.leaflet-popup-content-wrapper {
+  @apply rounded-md shadow-lg;
 }
