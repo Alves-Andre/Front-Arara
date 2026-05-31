@@ -20,30 +20,32 @@ const directionLabels: Record<EvidenceDirection, string> = {
   west: 'Foto Oeste',
 }
 
+const image = (id: string) => `/analysis/photos/${id}.jpg`
+
 const historicalImagesByDirection: Record<EvidenceDirection, string[]> = {
   north: [
-    'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1473773508845-188df298d2d1?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80',
+    image('photo-1500530855697-b586d89ba3ee'),
+    image('photo-1448375240586-882707db888b'),
+    image('photo-1473773508845-188df298d2d1'),
+    image('photo-1500382017468-9049fed747ef'),
   ],
   south: [
-    'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1455218873509-8097305ee378?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=1200&q=80',
+    image('photo-1501004318641-b39e6451bec6'),
+    image('photo-1465146344425-f00d5f5c8f07'),
+    image('photo-1455218873509-8097305ee378'),
+    image('photo-1502082553048-f009c37129b9'),
   ],
   east: [
-    'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1433086966358-54859d0ed716?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1426604966848-d7adac402bff?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1200&q=80',
+    image('photo-1500534314209-a25ddb2bd429'),
+    image('photo-1433086966358-54859d0ed716'),
+    image('photo-1426604966848-d7adac402bff'),
+    image('photo-1501854140801-50d01698950b'),
   ],
   west: [
-    'https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1439853949127-fa647821eba0?auto=format&fit=crop&w=1200&q=80',
-    'https://images.unsplash.com/photo-1513836279014-a89f7a76ae86?auto=format&fit=crop&w=1200&q=80',
+    image('photo-1518495973542-4542c06a5843'),
+    image('photo-1472214103451-9374bd1c798e'),
+    image('photo-1439853949127-fa647821eba0'),
+    image('photo-1513836279014-a89f7a76ae86'),
   ],
 }
 

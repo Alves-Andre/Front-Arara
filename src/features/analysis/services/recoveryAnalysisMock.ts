@@ -1,6 +1,6 @@
 import type { RecoveryAnalysisDataset } from '../types'
 
-const image = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=80`
+const image = (id: string) => `/analysis/photos/${id}.jpg`
 
 export const recoveryAnalysisMock: RecoveryAnalysisDataset = {
   area: {
