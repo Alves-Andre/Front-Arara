@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 
 import type { Metadata, Viewport } from 'next'
+import { Providers } from './providers'
 import 'leaflet/dist/leaflet.css'
 import './globals.css'
 
@@ -26,7 +27,7 @@ export default function RootLayout({
       </head>
       <body className="bg-background text-foreground">
         <div className="flex min-h-screen flex-col">
-          {children}
+          <Providers>{children}</Providers>
         </div>
       </body>
     </html>

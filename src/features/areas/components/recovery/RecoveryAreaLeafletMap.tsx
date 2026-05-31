@@ -46,12 +46,15 @@ export const RecoveryAreaLeafletMap = ({ area }: RecoveryAreaLeafletMapProps) =>
         mapRef.current = null
       }
 
-      const recoveryPolygon = L.polygon(area.polygon, recoveryPolygonStyle).bindPopup(
-        `<strong>${area.name}</strong><br />${area.recoveryAreaHectares} ha em recuperacao`
-      )
       const propertyBoundary = L.polygon(area.property.boundary, propertyBoundaryStyle).bindPopup(
         `<strong>${area.property.name}</strong><br />Area total: ${area.totalAreaHectares} ha`
       )
+      const recoveryPolygon =
+        area.polygon.length > 0
+          ? L.polygon(area.polygon, recoveryPolygonStyle).bindPopup(
+              `<strong>${area.name}</strong><br />${area.recoveryAreaHectares} ha em recuperacao`
+            )
+          : null
       const map = L.map(containerRef.current, {
         center: area.centroid,
         zoom: 14,
@@ -61,8 +64,8 @@ export const RecoveryAreaLeafletMap = ({ area }: RecoveryAreaLeafletMapProps) =>
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
           }),
-          recoveryPolygon,
           propertyBoundary,
+          ...(recoveryPolygon ? [recoveryPolygon] : []),
         ],
       })
 
@@ -83,8 +86,8 @@ export const RecoveryAreaLeafletMap = ({ area }: RecoveryAreaLeafletMapProps) =>
         .layers(
           {},
           {
-            'Area em recuperacao': recoveryPolygon,
             'Limite da propriedade': propertyBoundary,
+            ...(recoveryPolygon ? { 'Area em recuperacao': recoveryPolygon } : {}),
           },
           { position: 'topright' }
         )
