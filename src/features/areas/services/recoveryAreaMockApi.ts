@@ -1,4 +1,6 @@
 import type { RecoveryArea, RecoveryAreaResponse } from '../types'
+import { searchPropertyService } from '@/features/search/services'
+import type { Property, PropertyStatus } from '@/features/search/types'
 
 const semarhRecoveryArea: RecoveryArea = {
   id: 'rec-area-001',
@@ -39,7 +41,16 @@ const wait = (milliseconds: number) =>
   })
 
 export const recoveryAreaMockApi = {
-  async getImportedRecoveryArea(): Promise<RecoveryAreaResponse> {
+  async getImportedRecoveryArea(areaId?: string): Promise<RecoveryAreaResponse> {
+    if (areaId) {
+      const response = await searchPropertyService.searchByCar(decodeURIComponent(areaId))
+      const property = response.properties[0]
+
+      if (property) {
+        return { data: mapPropertyToRecoveryArea(property) }
+      }
+    }
+
     await wait(650)
     return { data: semarhRecoveryArea }
   },
@@ -48,4 +59,56 @@ export const recoveryAreaMockApi = {
     await wait(350)
     return { data: null }
   },
+}
+
+const mapPropertyStatusToRecoveryStatus = (status: PropertyStatus): RecoveryArea['monitoringStatus'] => {
+  const statusMap: Record<PropertyStatus, RecoveryArea['monitoringStatus']> = {
+    monitoring: 'monitoring',
+    awaiting_evidence: 'paused',
+    analysis: 'imported',
+    rejected: 'paused',
+  }
+
+  return statusMap[status]
+}
+
+const getCentroid = (polygon: Property['polygon']): RecoveryArea['centroid'] => {
+  if (polygon.length === 0) {
+    return [-10.2147, -48.3274]
+  }
+
+  const totals = polygon.reduce(
+    (acc, [lat, lng]) => ({
+      lat: acc.lat + lat,
+      lng: acc.lng + lng,
+    }),
+    { lat: 0, lng: 0 }
+  )
+
+  return [totals.lat / polygon.length, totals.lng / polygon.length]
+}
+
+const mapPropertyToRecoveryArea = (property: Property): RecoveryArea => {
+  const now = new Date().toISOString()
+
+  return {
+    id: property.id,
+    semarhCode: `SEMARH-AR-${property.id}`,
+    name: `Area em Recuperacao - ${property.name}`,
+    totalAreaHectares: property.totalArea,
+    recoveryAreaHectares: property.recoveryArea,
+    createdAt: now,
+    importedAt: now,
+    monitoringStatus: mapPropertyStatusToRecoveryStatus(property.status),
+    centroid: getCentroid(property.polygon),
+    polygon: property.recoveryPolygon,
+    property: {
+      id: property.id,
+      name: property.name,
+      owner: property.owner,
+      municipality: property.city,
+      registrationCode: property.car,
+      boundary: property.polygon,
+    },
+  }
 }

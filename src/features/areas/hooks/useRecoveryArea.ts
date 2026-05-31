@@ -5,6 +5,7 @@ import { recoveryAreaMockApi } from '../services/recoveryAreaMockApi'
 import type { RecoveryArea } from '../types'
 
 interface UseRecoveryAreaOptions {
+  areaId?: string
   empty?: boolean
 }
 
@@ -15,7 +16,7 @@ interface UseRecoveryAreaState {
   error: string | null
 }
 
-export const useRecoveryArea = ({ empty = false }: UseRecoveryAreaOptions = {}): UseRecoveryAreaState => {
+export const useRecoveryArea = ({ areaId, empty = false }: UseRecoveryAreaOptions = {}): UseRecoveryAreaState => {
   const [data, setData] = useState<RecoveryArea | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -30,7 +31,7 @@ export const useRecoveryArea = ({ empty = false }: UseRecoveryAreaOptions = {}):
 
         const response = empty
           ? await recoveryAreaMockApi.getEmptyImportedRecoveryArea()
-          : await recoveryAreaMockApi.getImportedRecoveryArea()
+          : await recoveryAreaMockApi.getImportedRecoveryArea(areaId)
 
         if (isMounted) {
           setData(response.data)
@@ -51,7 +52,7 @@ export const useRecoveryArea = ({ empty = false }: UseRecoveryAreaOptions = {}):
     return () => {
       isMounted = false
     }
-  }, [empty])
+  }, [areaId, empty])
 
   return {
     data,

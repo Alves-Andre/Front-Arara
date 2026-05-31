@@ -21,6 +21,7 @@ interface RecoveryAreaMapProps {
 
 export const RecoveryAreaMap = ({ area }: RecoveryAreaMapProps) => {
   const recoveryPercent = (area.recoveryAreaHectares / area.totalAreaHectares) * 100
+  const hasRecoveryPolygon = area.polygon.length > 0 && area.recoveryAreaHectares > 0
 
   return (
     <section className="overflow-hidden rounded-lg border border-slate-200 bg-slate-950 shadow-sm">
@@ -41,18 +42,24 @@ export const RecoveryAreaMap = ({ area }: RecoveryAreaMapProps) => {
 
         <div className="pointer-events-none absolute left-4 top-4 z-[400] max-w-[calc(100%-2rem)] rounded-md border border-white/60 bg-white/90 p-4 shadow-lg backdrop-blur">
           <p className="text-xs font-medium uppercase tracking-[0.16em] text-slate-500">Area em recuperacao</p>
-          <p className="mt-1 text-3xl font-semibold text-emerald-700">
-            {formatNumber(area.recoveryAreaHectares, 1)} ha
-          </p>
-          <p className="mt-1 text-sm text-slate-600">
-            {formatNumber(recoveryPercent, 1)}% da propriedade
-          </p>
+          {hasRecoveryPolygon ? (
+            <>
+              <p className="mt-1 text-3xl font-semibold text-emerald-700">
+                {formatNumber(area.recoveryAreaHectares, 1)} ha
+              </p>
+              <p className="mt-1 text-sm text-slate-600">{formatNumber(recoveryPercent, 1)}% da propriedade</p>
+            </>
+          ) : (
+            <p className="mt-1 text-sm font-medium text-slate-700">Nao vinculada no ARARA</p>
+          )}
         </div>
 
         <div className="absolute bottom-4 left-4 z-[400] rounded-md border border-white/60 bg-white/90 p-3 text-sm shadow-lg backdrop-blur">
           <p className="mb-2 text-xs font-medium uppercase tracking-[0.16em] text-slate-500">Legenda</p>
           <div className="space-y-2">
-            <LegendItem colorClassName="border-emerald-700 bg-emerald-500/30" label="Area em recuperacao" />
+            {hasRecoveryPolygon && (
+              <LegendItem colorClassName="border-emerald-700 bg-emerald-500/30" label="Area em recuperacao" />
+            )}
             <LegendItem colorClassName="border-sky-700 bg-sky-500/10" label="Limite da propriedade" />
           </div>
         </div>

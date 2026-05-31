@@ -1,6 +1,7 @@
 // src/shared/components/Button.tsx
 
 import React from 'react'
+import { Slot } from '@radix-ui/react-slot'
 import { cn } from '../utils/cn'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -11,7 +12,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = 'primary', size = 'md', isLoading = false, disabled, ...props }, ref) => {
+  ({ className, variant = 'primary', size = 'md', isLoading = false, disabled, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'button'
+    const disabledProps = asChild
+      ? { 'aria-disabled': disabled || isLoading }
+      : { disabled: disabled || isLoading }
     const baseStyles = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed'
 
     const variantStyles = {
@@ -31,14 +36,14 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     return (
-      <button
+      <Comp
         ref={ref}
-        disabled={disabled || isLoading}
+        {...disabledProps}
         className={cn(baseStyles, variantStyles[variant], sizeStyles[size], className)}
         {...props}
       >
         {isLoading ? 'Carregando...' : props.children}
-      </button>
+      </Comp>
     )
   }
 )

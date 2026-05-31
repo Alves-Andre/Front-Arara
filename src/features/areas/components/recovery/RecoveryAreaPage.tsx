@@ -8,8 +8,12 @@ import { RecoveryAreaSkeleton } from './RecoveryAreaSkeleton'
 import { RecoveryProjectCard } from './RecoveryProjectCard'
 import { useRecoveryArea } from '../../hooks'
 
-export const RecoveryAreaPage = () => {
-  const { data: area, isLoading, isEmpty, error } = useRecoveryArea()
+interface RecoveryAreaPageProps {
+  areaId?: string
+}
+
+export const RecoveryAreaPage = ({ areaId }: RecoveryAreaPageProps = {}) => {
+  const { data: area, isLoading, isEmpty, error } = useRecoveryArea(areaId ? { areaId } : {})
 
   if (isLoading) {
     return (
