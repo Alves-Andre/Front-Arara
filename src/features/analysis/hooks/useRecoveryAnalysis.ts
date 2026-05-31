@@ -1,27 +1,37 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { recoveryAnalysisMock } from '../services/recoveryAnalysisMock'
+import { axiosClient } from '@/shared/services/api/axiosClient'
 import type { MonitoringPointEvidence, RecoveryAnalysisDataset, TemporalPeriod } from '../types'
 
-export const useRecoveryAnalysis = () => {
+export const useRecoveryAnalysis = (carCode?: string) => {
   const [data, setData] = useState<RecoveryAnalysisDataset | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
+    if (!carCode) {
+      setIsLoading(false)
+      return
+    }
+
+    const fetchData = async () => {
       try {
-        setData(recoveryAnalysisMock)
-      } catch {
-        setError('Nao foi possivel carregar a analise ambiental.')
+        setIsLoading(true)
+        const { data } = await axiosClient.get<RecoveryAnalysisDataset>(
+          `/v1/compliances/recovery-analysis/${carCode}`
+        )
+        setData(data)
+      } catch (err: any) {
+        console.error('Erro ao carregar análise ambiental:', err)
+        setError('Nao foi possivel carregar a analise ambiental real. Verifique se o código CAR existe.')
       } finally {
         setIsLoading(false)
       }
-    }, 450)
+    }
 
-    return () => window.clearTimeout(timeoutId)
-  }, [])
+    fetchData()
+  }, [carCode])
 
   return {
     data,

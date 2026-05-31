@@ -23,9 +23,14 @@ import { SatellitePanel } from './SatellitePanel'
 import { TechnicalOpinion } from './TechnicalOpinion'
 import { TemporalTimeline } from './TemporalTimeline'
 
+import { useSearchParams } from 'next/navigation'
+// ... rest of imports
+
 export const EnvironmentalRecoveryAnalysisPage = () => {
   const router = useRouter()
-  const { data, isLoading, isEmpty, error } = useRecoveryAnalysis()
+  const searchParams = useSearchParams()
+  const carCode = searchParams.get('carCode') || 'TO-1721000-C36D0001D696444AA0C94E914C0C46E6'
+  const { data, isLoading, isEmpty, error } = useRecoveryAnalysis(carCode)
   const points = useMonitoringPoints(data)
   const { timeline, currentPeriod } = useTimeline(data)
   const [selectedPointId, setSelectedPointId] = useState<string | null>(null)
