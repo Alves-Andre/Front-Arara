@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { recoveryAreaMockApi } from '../services/recoveryAreaMockApi'
+import { areasApi } from '../services/areasApi'
 import type { RecoveryArea } from '../types'
 
 interface UseRecoveryAreaOptions {
@@ -30,15 +30,16 @@ export const useRecoveryArea = ({ areaId, empty = false }: UseRecoveryAreaOption
         setError(null)
 
         const response = empty
-          ? await recoveryAreaMockApi.getEmptyImportedRecoveryArea()
-          : await recoveryAreaMockApi.getImportedRecoveryArea(areaId)
+          ? await areasApi.getEmptyImportedRecoveryArea()
+          : await areasApi.getImportedRecoveryArea(areaId)
 
         if (isMounted) {
           setData(response.data)
         }
-      } catch {
+      } catch (err: any) {
+        console.log('[useRecoveryArea] Caught error:', err.message, err)
         if (isMounted) {
-          setError('Nao foi possivel carregar a area importada da SEMARH.')
+          setError('Nao foi possivel carregar a area importada da SEMARH. Erro: ' + err.message)
         }
       } finally {
         if (isMounted) {

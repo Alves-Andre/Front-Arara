@@ -1,27 +1,42 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { recoveryAnalysisMock } from '../services/recoveryAnalysisMock'
+import { analysisApi } from '../services/analysisApi'
 import type { MonitoringPointEvidence, RecoveryAnalysisDataset, TemporalPeriod } from '../types'
 
-export const useRecoveryAnalysis = () => {
+export const useRecoveryAnalysis = (areaId?: string) => {
   const [data, setData] = useState<RecoveryAnalysisDataset | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      try {
-        setData(recoveryAnalysisMock)
-      } catch {
-        setError('Nao foi possivel carregar a analise ambiental.')
-      } finally {
-        setIsLoading(false)
-      }
-    }, 450)
+    let isMounted = true
 
-    return () => window.clearTimeout(timeoutId)
-  }, [])
+    const loadData = async () => {
+      try {
+        setIsLoading(true)
+        setError(null)
+        const dataset = await analysisApi.getAnalysisDataset(areaId)
+        if (isMounted) {
+          setData(dataset)
+        }
+      } catch (err: any) {
+        if (isMounted) {
+          setError('Nao foi possivel carregar a analise ambiental.')
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false)
+        }
+      }
+    }
+
+    loadData()
+
+    return () => {
+      isMounted = false
+    }
+  }, [areaId])
 
   return {
     data,
