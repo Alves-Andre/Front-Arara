@@ -1,256 +1,193 @@
-// README.md
+# ARARA
 
-# SEMARH - Sistema de Monitoramento de Recuperação Ambiental
+![ARARA](public/brand/arara-nome.svg)
 
-## 🎯 Visão Geral
+ARARA e uma plataforma web para apoio a fiscalizacao, analise e acompanhamento de areas em recuperacao ambiental. O projeto foi desenvolvido para demonstrar como equipes tecnicas podem priorizar vistorias, consultar propriedades por CAR, visualizar evidencias territoriais e registrar decisoes de monitoramento em um fluxo digital simples, rastreavel e orientado a dados.
 
-Sistema web moderno e escalável para monitoramento de recuperação ambiental desenvolvido para a SEMARH (Secretaria do Meio Ambiente). Construído com as melhores práticas de engenharia de software, Clean Architecture e SOLID Principles.
+O sistema conecta a triagem de areas, o mapa operacional e a analise de evidencias em uma unica experiencia para reduzir retrabalho, acelerar a tomada de decisao e apoiar a recuperacao ambiental com melhor contexto tecnico.
 
-## 🚀 Tecnologias Principais
+## O Que O Projeto Faz
 
-- **Frontend Framework**: Next.js 15 (App Router)
-- **Linguagem**: TypeScript (strict mode)
-- **Styling**: Tailwind CSS + shadcn/ui
-- **State Management**: Zustand
-- **Data Fetching**: TanStack Query + Axios
-- **Forms**: React Hook Form + Zod
-- **Maps**: Leaflet + React Leaflet
-- **Package Manager**: npm
+O ARARA organiza o processo de vistoria ambiental em tres momentos principais:
 
-## 📋 Pré-requisitos
+1. Busca e priorizacao de propriedades.
+2. Consulta da area em recuperacao com mapa e dados ambientais.
+3. Analise tecnica da vistoria com evidencias, comparativos e decisao final.
 
-- Node.js 18+ 
-- npm 9+
+Na pratica, a equipe consegue localizar uma propriedade, verificar sua area em recuperacao, abrir uma vistoria, comparar evidencias visuais e indicar o encaminhamento tecnico:
 
-## 🔧 Instalação
+- Aprovar o monitoramento.
+- Solicitar nova evidencia.
+- Recomendar visita presencial.
+
+## Como Funciona
+
+### Busca e fila de vistorias
+
+A tela inicial permite buscar uma propriedade por CAR ou visualizar uma fila priorizada de vistorias. A partir dessa fila, o usuario acessa a area em recuperacao relacionada.
+
+### Area em recuperacao
+
+A tela de area apresenta:
+
+- Mapa territorial com limite da propriedade e area em recuperacao.
+- Dados resumidos da propriedade e da area ambiental.
+- Proxima etapa do projeto de recuperacao.
+- Historico de vistorias realizadas.
+
+### Vistoria e analise tecnica
+
+Na vistoria, o usuario visualiza:
+
+- Pontos de coleta no mapa.
+- Evidencias fotograficas por direcao.
+- Comparativo temporal de imagens.
+- Parecer tecnico.
+- Painel de decisao da vistoria.
+
+Ao concluir a vistoria, o sistema registra o resultado no historico local da area. Em uma evolucao de backend, esse evento pode ser persistido em API para auditoria, relatorios e continuidade operacional.
+
+## Integracoes
+
+O projeto foi estruturado para trabalhar com dados reais e tambem com dados mockados durante demonstracoes.
+
+Principais pontos de integracao:
+
+- Consulta de propriedades por CAR.
+- Dados territoriais da propriedade e da area em recuperacao.
+- Evidencias de campo e imagens comparativas.
+- Registro de decisao tecnica da vistoria.
+- Camadas de mapa via Leaflet/OpenStreetMap.
+
+As chamadas de servico ficam organizadas nas features em `src/features/*/services`, permitindo trocar mocks por APIs reais sem reescrever as telas.
+
+## Branding
+
+Os arquivos de marca do ARARA ficam em:
+
+```text
+public/brand/arara-logo.svg
+public/brand/arara-nome.svg
+```
+
+Esses assets sao usados para manter consistencia visual entre a aplicacao, apresentacoes e materiais de demonstracao.
+
+## Tecnologias
+
+- Next.js 15 com App Router.
+- React 18.
+- TypeScript.
+- Tailwind CSS.
+- Leaflet e React Leaflet para mapas.
+- TanStack Query para fluxo de dados.
+- Axios para cliente HTTP.
+- Zustand para estado global quando necessario.
+- Lucide React para icones.
+
+## Estrutura Principal
+
+```text
+src/
+  app/                 Rotas Next.js
+  features/
+    analysis/          Vistoria, evidencias e decisao tecnica
+    areas/             Area em recuperacao e fila de vistorias
+    search/            Busca de propriedades
+    evidences/         Evidencias ambientais
+    monitoring/        Eventos de monitoramento
+    satellite/         Imagens e cenas satelitais
+    requests/          Solicitacoes
+  shared/
+    components/        Componentes reutilizaveis
+    hooks/             Hooks compartilhados
+    services/          Cliente de API e servicos comuns
+    utils/             Formatadores e helpers
+```
+
+## Como Rodar Localmente
+
+### Pre-requisitos
+
+- Node.js 18 ou superior.
+- npm 9 ou superior.
+
+### Instalacao
 
 ```bash
-# Clonar repositório
-git clone <repo>
-cd frontend
-
-# Instalar dependências
 npm install
+```
 
-# Copiar arquivo de ambiente
+### Variaveis de ambiente
+
+Copie o arquivo de exemplo:
+
+```bash
 cp .env.example .env.local
+```
 
-# Configurar variáveis de ambiente
-# Editar .env.local com suas configurações
+Edite `.env.local` conforme o ambiente usado para API, autenticacao ou demonstracao.
 
-# Iniciar servidor de desenvolvimento
+### Desenvolvimento
+
+```bash
 npm run dev
 ```
 
-Acesse `http://localhost:3000`
+Acesse:
 
-## 📁 Estrutura do Projeto
-
-```
-src/
-├── app/                    # Next.js App Router
-├── features/               # Feature-Based Architecture
-│   ├── areas/             # Gerenciamento de áreas
-│   ├── monitoring/        # Monitoramento
-│   ├── evidences/         # Evidências (fotos, vídeos)
-│   ├── satellite/         # Imagens satélites
-│   ├── analysis/          # Análises espectrais
-│   └── requests/          # Solicitações
-├── shared/                # Código compartilhado
-│   ├── components/        # Componentes reutilizáveis
-│   ├── hooks/            # Custom hooks
-│   ├── stores/           # Zustand stores
-│   ├── services/         # Serviços (API, Auth)
-│   ├── utils/            # Funções utilitárias
-│   ├── types/            # Tipos TypeScript
-│   ├── constants/        # Constantes
-│   └── lib/              # Bibliotecas compartilhadas
-└── middleware.ts         # Next.js middleware
+```text
+http://localhost:3000
 ```
 
-## 🎨 Arquitetura
-
-### Feature-Based Architecture
-
-Cada feature é auto-contida com sua própria estrutura:
-
-```
-features/areas/
-├── components/      # Componentes React
-├── hooks/          # Hooks customizados
-├── services/       # Chamadas API
-├── store/          # Zustand store
-├── types/          # Types TypeScript
-├── schemas/        # Validação (Zod)
-├── utils/          # Funções helpers
-├── pages/          # Páginas/layouts
-└── index.ts        # Barrel export
-```
-
-### Princípios
-
-- **Clean Architecture**: Separação clara de responsabilidades
-- **SOLID**: Single responsibility, Open/closed, Liskov, Interface segregation, Dependency inversion
-- **DRY**: Don't repeat yourself
-- **KISS**: Keep it simple, stupid
-- **Type Safety**: TypeScript strict mode
-
-## 🧩 Componentes
-
-### Atomic Components
-
-Componentes sem lógica complexa, altamente reutilizáveis:
-
-```typescript
-<Button variant="primary" size="lg" onClick={() => {}}>
-  Clique aqui
-</Button>
-```
-
-### Compound Components
-
-Componentes que trabalham juntos:
-
-```typescript
-<Form>
-  <FormField name="email" label="Email" />
-  <FormField name="password" label="Senha" />
-  <Button type="submit">Enviar</Button>
-</Form>
-```
-
-### Domain Components
-
-Componentes específicos de uma feature:
-
-```typescript
-<AreaCard area={area} onEdit={handleEdit} onDelete={handleDelete} />
-```
-
-## 📋 Formulários
-
-Com React Hook Form + Zod:
-
-```typescript
-const { register, handleSubmit, formState: { errors } } = useForm<CreateAreaInput>({
-  resolver: zodResolver(createAreaSchema),
-})
-
-<form onSubmit={handleSubmit(onSubmit)}>
-  <input {...register('name')} />
-  {errors.name && <span>{errors.name.message}</span>}
-</form>
-```
-
-## 🔌 API Integration
-
-```typescript
-// Service
-export const areasService = {
-  getAreas: (page, limit) => axiosClient.get('/areas', { params: { page, limit } }),
-  createArea: (data) => axiosClient.post('/areas', data),
-}
-
-// Hook
-export const useAreas = (page, limit) => useQuery({
-  queryKey: ['areas', page, limit],
-  queryFn: () => areasService.getAreas(page, limit),
-})
-
-// Component
-const { data, isLoading } = useAreas(1, 10)
-```
-
-## 📦 State Management
-
-### Global State (Zustand)
-
-```typescript
-const useAuthStore = create((set) => ({
-  user: null,
-  setUser: (user) => set({ user }),
-}))
-
-// Usar no componente
-const { user, setUser } = useAuthStore()
-```
-
-### Local State (React)
-
-```typescript
-const [isOpen, setIsOpen] = useState(false)
-```
-
-## 🗺️ Maps (GIS)
-
-```typescript
-<GeoMap
-  center={[-15.8267, -48.0]}
-  zoom={10}
-  markers={markers}
-  onMarkerClick={(marker) => handleClick(marker)}
-/>
-```
-
-## 🔐 Autenticação
-
-1. **Login**: Envia credenciais, recebe token
-2. **Interceptor**: Adiciona token em todas as requisições
-3. **Refresh**: Token expira e é renovado automaticamente
-4. **Logout**: Limpa token e redireciona
-
-```typescript
-const { login, logout, isAuthenticated } = useAuth()
-
-useEffect(() => {
-  if (!isAuthenticated) {
-    router.push('/login')
-  }
-}, [isAuthenticated])
-```
-
-## ✅ Testes
+### Build de producao
 
 ```bash
-# Executar testes
-npm run test
-
-# Com coverage
-npm run test:coverage
-
-# Modo watch
-npm run test:watch
-```
-
-## 🏗️ Build
-
-```bash
-# Build para produção
 npm run build
+```
 
-# Iniciar servidor de produção
+### Rodar build local
+
+```bash
 npm start
 ```
 
-## 📚 Documentação Adicional
+## Scripts Disponiveis
 
-- [ARCHITECTURE.md](./ARCHITECTURE.md) - Documentação detalhada da arquitetura
-- [docs/CONVENTIONS.md](./docs/CONVENTIONS.md) - Convenções de código
-- [docs/DEVELOPMENT_GUIDE.md](./docs/DEVELOPMENT_GUIDE.md) - Guia de desenvolvimento
-- [docs/API_INTEGRATION.md](./docs/API_INTEGRATION.md) - Integração com API
-- [docs/GIS_STRATEGY.md](./docs/GIS_STRATEGY.md) - Estratégia de GIS
+```bash
+npm run dev          # servidor local de desenvolvimento
+npm run build        # build de producao
+npm run start        # servidor de producao apos build
+npm run type-check   # validacao TypeScript
+npm run test         # testes
+npm run format       # formatacao com Prettier
+```
 
-## 🤝 Contribuindo
+## Deploy
 
-1. Crie uma branch: `git checkout -b feature/minha-feature`
-2. Commit suas mudanças: `git commit -am 'Add feature'`
-3. Push para a branch: `git push origin feature/minha-feature`
-4. Abra um Pull Request
+O projeto esta preparado para deploy em Vercel.
 
-## 📝 Licença
+Arquivos estaticos usados pela aplicacao, como logos e imagens de apoio, devem ficar dentro de `public/`. Dessa forma, eles sao empacotados junto com o deploy e podem ser lidos em producao por caminhos como:
 
-Este projeto é propriedade da SEMARH.
+```text
+/brand/arara-logo.svg
+/analysis/photos/nome-da-imagem.jpg
+```
 
-## 📞 Suporte
+## Uso De Inteligencia Artificial
 
-Para dúvidas ou problemas, entre em contato com o time de desenvolvimento.
+O desenvolvimento do ARARA contou com uso transparente de inteligencia artificial como apoio ao processo de construcao.
+
+A IA foi usada principalmente em duas frentes:
+
+- Spec-Driven Development: transformacao de requisitos, fluxos de usuario e regras de produto em especificacoes incrementais para guiar a implementacao.
+- Expansao de brainstorms: apoio para explorar alternativas de experiencia, navegacao, priorizacao de vistorias, estados de decisao e organizacao das telas.
+
+As decisoes finais de produto, escopo, validacao e direcionamento tecnico permaneceram com a equipe. A IA atuou como aceleradora de raciocinio, prototipacao, revisao e implementacao, sem substituir a avaliacao humana sobre o contexto ambiental e operacional.
+
+## Contexto Do Projeto
+
+O ARARA foi pensado para demonstrar uma jornada digital de apoio a recuperacao ambiental, conectando analise territorial, evidencias de campo e decisao tecnica. A proposta e mostrar como uma secretaria, equipe fiscal ou operador ambiental pode sair de uma fila de prioridades para uma vistoria documentada com poucos cliques.
+
+## Licenca E Propriedade
+
+Este projeto e parte de uma iniciativa demonstrativa para monitoramento e recuperacao ambiental. O uso, distribuicao e evolucao devem respeitar as regras definidas pela equipe responsavel pelo projeto.
