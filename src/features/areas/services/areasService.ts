@@ -24,6 +24,14 @@ export const areasService = {
   },
 
   /**
+   * Buscar fila de vistorias priorizada (Analista SEMARH)
+   */
+  async getComplianceQueue() {
+    const { data } = await axiosClient.get('/v1/compliances/queue')
+    return data
+  },
+
+  /**
    * Criar uma nova área
    */
   async createArea(input: CreateAreaInput) {

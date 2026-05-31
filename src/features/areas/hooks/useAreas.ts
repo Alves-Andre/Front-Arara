@@ -14,6 +14,14 @@ export const useAreas = (page = 1, limit = 10, filters?: Record<string, any>) =>
   })
 }
 
+export const useComplianceQueue = () => {
+  return useQuery({
+    queryKey: [...AREAS_QUERY_KEY, 'compliance-queue'],
+    queryFn: () => areasService.getComplianceQueue(),
+    staleTime: 1 * 60 * 1000, // 1 minute
+  })
+}
+
 export const useArea = (id: string) => {
   return useQuery({
     queryKey: [...AREAS_QUERY_KEY, id],
