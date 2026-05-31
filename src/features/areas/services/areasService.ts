@@ -27,7 +27,7 @@ export const areasService = {
    * Buscar fila de vistorias priorizada (Analista SEMARH)
    */
   async getComplianceQueue() {
-    const { data } = await axiosClient.get('/v1/compliances/queue')
+    const { data } = await axiosClient.get('/v1/compliances/public-queue')
     return data
   },
 
