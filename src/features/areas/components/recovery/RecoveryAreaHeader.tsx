@@ -1,18 +1,32 @@
-import { AppLogo } from '@/shared/components'
+'use client'
+
+import { ArrowLeft } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { AppLogo, Button } from '@/shared/components'
 import { formatNumber } from '@/shared/utils/formatters'
 import type { RecoveryArea } from '../../types'
 import { getRecoveryAreaStatusLabel } from '../../utils/recoveryAreaHelpers'
+import { RecoveryAreaBreadcrumb } from './RecoveryAreaBreadcrumb'
 
 interface RecoveryAreaHeaderProps {
   area: RecoveryArea
 }
 
 export const RecoveryAreaHeader = ({ area }: RecoveryAreaHeaderProps) => {
+  const router = useRouter()
   const recoveryPercent = (area.recoveryAreaHectares / area.totalAreaHectares) * 100
 
   return (
     <header className="border-b border-slate-200 bg-white">
       <div className="mx-auto flex max-w-[1600px] flex-col gap-5 px-4 py-5 sm:px-6 xl:px-8">
+        <div className="flex items-center justify-between">
+          <RecoveryAreaBreadcrumb />
+          <Button variant="outline" size="sm" onClick={() => router.back()} className="gap-2 text-slate-600">
+            <ArrowLeft className="size-4" />
+            Voltar
+          </Button>
+        </div>
+        
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
           <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-center">
             <AppLogo markClassName="size-14" wordmarkClassName="h-12" />
