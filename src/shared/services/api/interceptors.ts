@@ -21,9 +21,10 @@ export const setupInterceptors = (instance: AxiosInstance) => {
     (response: AxiosResponse) => response,
     async (error: AxiosError) => {
       if (error.response?.status === 401) {
-        // Token expirado ou inválido
-        useAuthStore.getState().logout()
-        window.location.href = '/login'
+        // Redirecionamento desativado para o modo demo
+        console.warn('Sessão expirada ou Token ausente (Modo Demo Ativo)')
+        // useAuthStore.getState().logout()
+        // window.location.href = '/login'
       }
 
       if (error.response?.status === 403) {
