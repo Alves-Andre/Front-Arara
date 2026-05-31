@@ -19,19 +19,11 @@ export default function LoginPage() {
     setError(null)
 
     try {
-      const { data } = await axiosClient.post('/v1/auth/email/login-code', {
-        email,
-        code: code.toUpperCase(),
-      })
-
-      // Salvar token (Ajustar conforme o nome da chave no seu .env.local)
-      localStorage.setItem('authToken', data.token)
-      
-      // Redirecionar para a fila de vistorias
+      // Login "Dummy" - Apenas para passar da tela durante o pitch
+      localStorage.setItem('authToken', 'dummy-token-for-demo')
       router.push('/areas/recuperacao')
     } catch (err: any) {
-      console.error(err)
-      setError('Código ou E-mail inválidos. Verifique o código enviado ao seu e-mail.')
+      setError('Erro ao entrar.')
     } finally {
       setIsLoading(false)
     }

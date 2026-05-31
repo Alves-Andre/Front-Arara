@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useRouter } from 'next/navigation'
-import { useComplianceQueue } from '../../hooks/useAreas'
+import { useComplianceQueue } from '../hooks/useAreas'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { 

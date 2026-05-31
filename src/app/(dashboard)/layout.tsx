@@ -17,22 +17,13 @@ export default function DashboardLayout({
   const { sidebarOpen } = useUIStore()
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      router.push('/login')
-    }
+    // Redirecionamento de login desativado para facilitar testes
+    // if (!isLoading && !isAuthenticated) {
+    //   router.push('/login')
+    // }
   }, [isAuthenticated, isLoading, router])
 
-  if (isLoading || !isAuthenticated) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="text-center">
-          <h2 className="text-xl font-semibold mb-2">Carregando...</h2>
-          <p className="text-muted-foreground">Por favor, aguarde</p>
-        </div>
-      </div>
-    )
-  }
-
+  // Ignorar validação de carregamento/autenticação para o modo livre
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar */}
