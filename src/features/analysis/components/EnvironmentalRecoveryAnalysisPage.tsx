@@ -3,8 +3,16 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import type { ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
-import { CheckCircle2, Eye, MapPinned, ShieldCheck, X } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, Eye, MapPinned, ShieldCheck, X } from 'lucide-react'
 import { Button } from '@/shared/components'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/shared/components/ui'
 import { formatNumber } from '@/shared/utils/formatters'
 import {
   useEvidence,
@@ -164,6 +172,33 @@ export const EnvironmentalRecoveryAnalysisPage = () => {
     <main className="min-h-screen bg-slate-100">
       <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto max-w-[1800px] px-4 py-5 sm:px-6 xl:px-8">
+          <div className="mb-4 flex items-center justify-between">
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/">Inicio</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href="/areas">Areas</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbLink href={`/areas/recuperacao`}>Area em Recuperacao</BreadcrumbLink>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator />
+                <BreadcrumbItem>
+                  <BreadcrumbPage>Analise</BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+            
+            <Button variant="outline" size="sm" onClick={() => router.back()} className="gap-2 text-slate-600">
+              <ArrowLeft className="size-4" />
+              Voltar
+            </Button>
+          </div>
+
           <div className="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
             <div>
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-slate-500">US08 - Analise de recuperacao ambiental</p>
